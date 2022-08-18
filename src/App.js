@@ -1,59 +1,37 @@
-import React, { component } from 'react'
-import profilecard from './components/profilecard'
-import { Component } from 'react'
+import { useState } from "react";
 
-class App extends component{
-  constructor() {
-  
-  supper();
+import Profilecard from "./components/Profilecard";
+import Profileform from "./components/Profileform";
 
-  this.handleClick=this.handleClick.bind(this)
-  this.state = {
-    writers: {
-      loading: false,
-      list:[]
-    }
-  }
-    this.handleClick()
-      this.setstate({
-        writers: {
-          loading: true,
-        }
-      });
-      setTimeout(async () => {
-        let resp = await ("writers.json");
-        let result = await resp.json()
-      })
-    
-      this.setstate()
-  
-      writers:{
-        loading:false,
-          listresult
-      }
-    }
-  
+function App() {
+  const [allprofiles, setALLprofiles] = useState([
+    {
+      fisrtname: "shaukat",
+      lastname: "shamsdeen",
+      email: "shaukatshamsdeen7@gmail.com",
+      phone: "0505504493",
+    },
+  ]);
 
-    }
-  
-  render() {
-    const {
-      writers: { loading, list }
-    } = this.state;
-  }
-  if(loading) {
-    return (
-      <div>
-        <h1>writers profile</h1>
-      
-          <div className="container"> </div>
-        <div className="card action"> </div>
-        <p className="infotext"> laoding ...</p>
-      
+  const updateallprofiles = (profiles) => {
+    let arr = allprofiles;
+    arr.push(profiles);
+    setALLprofiles({ ...arr });
+  };
+  return (
+    <>
+      <div className="App">
+        <hi>Our profile maker</hi>
       </div>
-      
-    )
-  }
+      <Profileform submit={updateallprofiles} />
+      <hr />
+      <div className="list">
+        {allprofiles.map((person, index) => (
+          <Profilecard key={index} card={person} />
+        ))}
+      </div>
+    </>
+  );
+}
 
-
-export default App
+export default App;
